@@ -47,12 +47,26 @@ class PolylineTool extends FabricCanvasTool {
   configureCanvas(props) {
     const canvas = this._canvas;
     canvas.isDrawingMode = canvas.selection = false;
-    canvas.forEachObject((o) => (o.selectable = o.evented = false));
+    // canvas.forEachObject((o) => (o.selectable = o.evented = false));
 
     this._width = props.lineWidth;
     this._color = props.lineColor;
     this.completedEdit = false;
+    this.editing = false;
 
+    this.initializeRoof();
+
+    /**
+     *
+     * @type {Line[]}
+     */
+    this.lines = [];
+  }
+
+  /**
+   * Create new roof with no points
+   */
+  initializeRoof() {
     /**
      *
      * @type {Polygon}
@@ -64,30 +78,31 @@ class PolylineTool extends FabricCanvasTool {
       transparentCorners: false,
       cornerColor: 'blue',
       type: 'polygon',
+      perPixelTargetFind: true,
     });
-
-    /**
-     *
-     * @type {Line[]}
-     */
-    this.lines = [];
   }
 
   doMouseDown(o) {
     let canvas = this._canvas;
     const pointer = canvas.getPointer(o.e);
 
-    if (this.roof.edit) return;
-    if (!this.roof.edit && this.completedEdit) {
-      this.completedEdit = false;
+    if (!!canvas.getActiveObject()) return null;
+    if (!canvas.getActiveObject() && this.editing) {
+      this.editing = false;
       return;
     }
+
+    // if (this.roof.edit) return;
+    // if (!this.roof.edit && this.completedEdit) {
+    //   this.completedEdit = false;
+    //   return;
+    // }
 
     const shouldEndPolygon = this.shouldEndPolygon(o)
 
     if (shouldEndPolygon) {
       this.endPolygon(o)
-      this.edit();
+      // this.edit();
     }
     else {
       this.lines.push(new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
@@ -149,12 +164,23 @@ class PolylineTool extends FabricCanvasTool {
   endPolygon(o) {
     const canvas = this._canvas;
 
+    canvas.remove(this.roof);
+
     this.roof.points = this.lines.map(line => new fabric.Point(line.x1, line.y1));
-    canvas.add(this.roof);
-    canvas.renderAll();
+
+    const obj = this.roof.toObject();
+    delete obj.top;
+    delete obj.left;
+
+    const shape = new fabric.Polygon(this.roof.points, obj);
 
     this.lines.forEach(line => canvas.remove(line))
     this.lines = [];
+    this.editing = true;
+    this.initializeRoof();
+    canvas.add(shape);
+
+    canvas.renderAll();
   }
 
   edit() {
