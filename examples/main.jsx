@@ -21,6 +21,20 @@ import Collapse from '@material-ui/core/Collapse';
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import color from '@material-ui/core/colors/blueGrey';
 
+import {
+  GpsFixed,
+  RadioButtonUnchecked,
+  CheckBoxOutlineBlank,
+  LinearScale,
+  ZoomIn,
+  ZoomOut,
+  ControlCamera,
+  Close,
+  Texture,
+  CallMade,
+  GetApp,
+} from '@material-ui/icons';
+
 import UndoIcon from '@material-ui/icons/Undo';
 import RedoIcon from '@material-ui/icons/Redo';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -39,6 +53,7 @@ import dataUrl from './data.url';
 import DropZone from 'react-dropzone';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
+import Grid from "@material-ui/core/Grid";
 
 const styles = {
   root: {
@@ -121,7 +136,7 @@ class SketchFieldDemo extends React.Component {
       backgroundColor: 'transparent',
       shadowWidth: 0,
       shadowOffset: 0,
-      tool: Tools.Pencil,
+      tool: Tools.DefaultTool,
       enableRemoveSelected: false,
       fillWithColor: false,
       fillWithBackgroundColor: false,
@@ -338,6 +353,134 @@ class SketchFieldDemo extends React.Component {
             </AppBar>
           </div>
         </div>
+        <Grid
+          item
+          xs={12}
+          style={{
+            marginTop: 10,
+            padding: '8px 0',
+            border: '1px solid black',
+            background: '#fafafa',
+            borderRadius: '5px 5px 0 0',
+          }}
+        >
+          <Grid container>
+            <Grid item xs={1} />
+            <Grid
+              item
+              xs={3}
+              style={{
+                justifyContent: 'space-around',
+                display: 'flex',
+                padding: '0 10px',
+              }}
+            >
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+              >
+                <GpsFixed fontSize="small" />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+                onClick={() => this.setState({ tool: Tools.Circle })}
+              >
+                <RadioButtonUnchecked fontSize="small" />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+                onClick={() => this.setState({ tool: Tools.Rectangle })}
+              >
+                <CheckBoxOutlineBlank fontSize="small" />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+                onClick={() => this.setState({ tool: Tools.Polyline })}
+              >
+                <LinearScale fontSize="small" />
+              </Button>
+            </Grid>
+            <Grid
+              item
+              xs={3}
+              style={{
+                justifyContent: 'space-around',
+                display: 'flex',
+                padding: '0 40px',
+              }}
+            >
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+                onClick={(e) => this._sketch.zoom(1.25)}
+              >
+                <ZoomIn fontSize="small" />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+                onClick={(e) => this._sketch.zoom(0.8)}
+              >
+                <ZoomOut fontSize="small" />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+                onClick={() => this.setState({ tool: Tools.Pan })}
+              >
+                <ControlCamera fontSize="small" />
+              </Button>
+            </Grid>
+            <Grid
+              item
+              xs={4}
+              style={{
+                justifyContent: 'space-around',
+                display: 'flex',
+                padding: '0 10px',
+              }}
+            >
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+              >
+                <Close fontSize="small" />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+              >
+                <CallMade
+                  fontSize="small"
+                  style={{ transform: 'rotate(-90deg)' }}
+                />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+              >
+                <GetApp fontSize="small" />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+              >
+                <Texture fontSize="small" />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+                style={{ height: 32 }}
+              >
+                roi
+              </Button>
+            </Grid>
+            <Grid item xs={1} />
+          </Grid>
+        </Grid>
         <div className="row">
           <div className="col-xs-7 col-sm-7 col-md-9 col-lg-9">
             <SketchField
@@ -397,7 +540,8 @@ class SketchFieldDemo extends React.Component {
                         <MenuItem value={Tools.Rectangle} key="Rectangle">Rectangle</MenuItem>
                         <MenuItem value={Tools.Circle} key="Circle">Circle</MenuItem>
                         <MenuItem value={Tools.Pan} key="Pan">Pan</MenuItem>
-                        <MenuItem value={Tools.RectangleLabel} key="Pan">RectangleLabel</MenuItem>
+                        <MenuItem value={Tools.RectangleLabel} key="Pan2">RectangleLabel</MenuItem>
+                        <MenuItem value={Tools.Polyline} key="Polyline">Polyline</MenuItem>
                       </TextField>
                     </div>
                   </div>

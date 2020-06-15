@@ -4,7 +4,14 @@
  * "Abstract" like base class for a Canvas tool
  */
 class FabricCanvasTool {
+  /**
+   *
+   * @param {fabric.Canvas} canvas
+   */
   constructor(canvas) {
+    /**
+     * @type {fabric.Canvas}
+     */
     this._canvas = canvas;
   }
 
@@ -12,18 +19,34 @@ class FabricCanvasTool {
 
   }
 
+  /**
+   *
+   * @param {IEvent} event
+   */
   doMouseUp(event) {
 
   }
 
+  /**
+   *
+   * @param {IEvent} event
+   */
   doMouseDown(event) {
 
   }
 
+  /**
+   *
+   * @param {IEvent} event
+   */
   doMouseMove(event) {
 
   }
 
+  /**
+   *
+   * @param {IEvent} event
+   */
   doMouseOut(event) {
 
   }
