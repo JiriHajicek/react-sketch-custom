@@ -120,6 +120,7 @@ class SketchField extends PureComponent {
     this._tools[Tool.Circle] = new Circle(fabricCanvas);
     this._tools[Tool.Pan] = new Pan(fabricCanvas);
     this._tools[Tool.DefaultTool] = new DefaultTool(fabricCanvas);
+    this._tools[Tool.Polyline] = new PolylineTool(fabricCanvas);
   };
 
   /**
