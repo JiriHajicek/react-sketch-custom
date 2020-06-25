@@ -51,6 +51,7 @@ class PolylineTool extends FabricCanvasTool {
 
     this._width = props.lineWidth;
     this._color = props.lineColor;
+    this._fill = props.fillColor;
     this.completedEdit = false;
     this.editing = false;
 
