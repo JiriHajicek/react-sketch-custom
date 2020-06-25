@@ -12,4 +12,5 @@ export default {
   DefaultTool: 'default-tool',
   Polyline: 'polyline',
   PolylineCut: 'polyline-cut',
+  Cursor: 'cursor'
 }

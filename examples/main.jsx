@@ -549,6 +549,7 @@ class SketchFieldDemo extends React.Component {
                         <MenuItem value={Tools.Pan} key="Pan">Pan</MenuItem>
                         <MenuItem value={Tools.RectangleLabel} key="Pan2">RectangleLabel</MenuItem>
                         <MenuItem value={Tools.Polyline} key="Polyline">Polyline</MenuItem>
+                        <MenuItem value={Tools.Cursor} key="Cursor">Cursor</MenuItem>
                       </TextField>
                     </div>
                   </div>
