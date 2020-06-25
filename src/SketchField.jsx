@@ -18,6 +18,7 @@ import PolylineTool from "./polyline";
 import PolylineCutTool from "./polyline-cut";
 import RectangleCut from "./rectangle-cut";
 import CircleCut from "./circle-cut";
+import CursorTool from "./cursor"
 
 const fabric = require("fabric").fabric;
 
@@ -127,6 +128,7 @@ class SketchField extends PureComponent {
     this._tools[Tool.DefaultTool] = new DefaultTool(fabricCanvas);
     this._tools[Tool.Polyline] = new PolylineTool(fabricCanvas);
     this._tools[Tool.PolylineCut] = new PolylineCutTool(fabricCanvas);
+    this._tools[Tool.Cursor] = new CursorTool(fabricCanvas);
   };
 
   /**

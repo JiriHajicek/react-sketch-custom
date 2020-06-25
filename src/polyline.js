@@ -72,12 +72,11 @@ class PolylineTool extends FabricCanvasTool {
      * @type {Polygon}
      */
     this.roof = new fabric.Polygon([], {
-      fill: 'black',
-      strokeWidth: 1,
-      objectCaching: false,
-      transparentCorners: false,
-      cornerColor: 'blue',
-      type: 'polygon',
+      selectable: false,
+      evented: false,
+      fill: this._fill,
+      stroke: this._color,
+      strokeWidth: this._width,
     });
 
     console.log(this.roof)
@@ -107,9 +106,10 @@ class PolylineTool extends FabricCanvasTool {
     }
     else {
       this.lines.push(new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
-        strokeWidth: 3,
         selectable: false,
-        stroke: 'white',
+        fill: this._fill,
+        stroke: this._color,
+        strokeWidth: this._width,
       }))
 
       canvas.add(this.lines[this.lines.length - 1]);
@@ -173,7 +173,7 @@ class PolylineTool extends FabricCanvasTool {
     delete obj.top;
     delete obj.left;
 
-    const shape = new fabric.Polygon(this.roof.points, obj);
+    const shape = new fabric.Polygon(this.roof.points, {...obj, selectable: false, evented: false});
 
     this.lines.forEach(line => canvas.remove(line))
     this.lines = [];
