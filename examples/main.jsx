@@ -500,7 +500,11 @@ class SketchFieldDemo extends React.Component {
               ref={c => (this._sketch = c)}
               lineColor={this.state.lineColor}
               lineWidth={this.state.lineWidth}
-              fillColor={'black'}
+              fillColor={
+                this.state.fillWithColor
+                  ? this.state.fillColor
+                  : 'transparent'
+              }
               backgroundColor={
                 this.state.fillWithBackgroundColor
                   ? this.state.backgroundColor
