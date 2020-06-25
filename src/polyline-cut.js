@@ -43,7 +43,7 @@ function anchorWrapper(anchorIndex, fn) {
   }
 }
 
-class PolylineTool extends FabricCanvasTool {
+export default class PolylineCutTool extends FabricCanvasTool {
   configureCanvas(props) {
     const canvas = this._canvas;
     canvas.isDrawingMode = canvas.selection = false;
@@ -72,15 +72,13 @@ class PolylineTool extends FabricCanvasTool {
      * @type {Polygon}
      */
     this.roof = new fabric.Polygon([], {
-      fill: 'black',
       strokeWidth: 1,
       objectCaching: false,
       transparentCorners: false,
       cornerColor: 'blue',
-      type: 'polygon',
+      type: 'polygon-cut',
+      globalCompositeOperation: 'destination-out',
     });
-
-    console.log(this.roof)
   }
 
   doMouseDown(o) {
@@ -182,7 +180,6 @@ class PolylineTool extends FabricCanvasTool {
     canvas.add(shape);
 
     canvas.renderAll();
-    canvas.forEachObject((o) => (o.selectable = o.evented = false));
   }
 
   edit() {
@@ -226,5 +223,3 @@ class PolylineTool extends FabricCanvasTool {
     canvas.requestRenderAll();
   }
 }
-
-export default PolylineTool;

@@ -32,7 +32,8 @@ import {
   Close,
   Texture,
   CallMade,
-  GetApp,
+  GetApp, PanToolOutlined,
+  TouchAppOutlined,
 } from '@material-ui/icons';
 
 import UndoIcon from '@material-ui/icons/Undo';
@@ -375,6 +376,9 @@ class SketchFieldDemo extends React.Component {
                 padding: '0 10px',
               }}
             >
+              <Button color={false ? 'primary' : 'default'} variant="contained" onClick={() => this.setState({ tool: Tools.Select})}>
+                <TouchAppOutlined fontSize="small" />
+              </Button>
               <Button
                 color={false ? 'primary' : 'default'}
                 variant="contained"
@@ -399,6 +403,13 @@ class SketchFieldDemo extends React.Component {
                 color={false ? 'primary' : 'default'}
                 variant="contained"
                 onClick={() => this.setState({ tool: Tools.Polyline })}
+              >
+                <LinearScale fontSize="small" />
+              </Button>
+              <Button
+                color={false ? 'primary' : 'default'}
+                variant="contained"
+                onClick={() => this.setState({ tool: Tools.PolylineCut })}
               >
                 <LinearScale fontSize="small" />
               </Button>
@@ -489,11 +500,7 @@ class SketchFieldDemo extends React.Component {
               ref={c => (this._sketch = c)}
               lineColor={this.state.lineColor}
               lineWidth={this.state.lineWidth}
-              fillColor={
-                this.state.fillWithColor
-                  ? this.state.fillColor
-                  : 'transparent'
-              }
+              fillColor={'black'}
               backgroundColor={
                 this.state.fillWithBackgroundColor
                   ? this.state.backgroundColor
