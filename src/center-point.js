@@ -41,6 +41,7 @@ class CenterPointTool extends FabricCanvasTool {
 
     if (existingCenterPoint) {
       existingCenterPoint.set({ top: pointer.y, left: pointer.x });
+      existingCenterPoint.bringToFront();
       canvas.renderAll();
       return;
     }
