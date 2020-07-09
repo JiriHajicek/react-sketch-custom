@@ -81,7 +81,7 @@ class PolylineTool extends FabricCanvasTool {
       strokeWidth: this._width,
     });
 
-    console.log(this.roof)
+    // console.log(this.roof)
   }
 
   doMouseDown(o) {
