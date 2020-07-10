@@ -1,4 +1,4 @@
-export default {
+export const Tools = {
   Circle: "circle",
   CircleCut: "circle-cut",
   Line: "line",
@@ -14,4 +14,4 @@ export default {
   PolylineCut: "polyline-cut",
   Cursor: "cursor",
   CenterPoint: "center-point",
-};
+} as const;

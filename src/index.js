@@ -1,8 +1,8 @@
 import SketchField from './SketchField'
-import Tools from './tools'
+import { Tools } from './tools'
 
-export {SketchField}
-export {Tools}
+export { SketchField }
+export { Tools }
 
 export default {
   SketchField,

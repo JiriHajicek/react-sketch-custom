@@ -1,43 +1,48 @@
 /*eslint no-unused-vars: 0*/
 
 import FabricCanvasTool from "./fabrictool";
-
-const fabric = require("fabric").fabric;
+import { fabric } from 'fabric';
 
 class CenterPointTool extends FabricCanvasTool {
+  private _color: string;
+  private _fill: string;
+  private _width: number;
+  private _radius: number;
+
   configureCanvas(props) {
-    let canvas = this._canvas;
+    const  canvas = this._canvas;
     canvas.isDrawingMode = canvas.selection = false;
     canvas.forEachObject((o) => (o.selectable = o.evented = false));
 
-    /**
-     * @type {string}
-     */
     this._color = props.lineColor;
-
-    /**
-     * @type {string}
-     */
     this._fill = props.fillColor;
-
-    /**
-     * @type {number}
-     */
     this._width = props.lineWidth;
-
-    /**
-     * @type {number}
-     */
     this._radius = 10;
+
+    const activeObject: fabric.Object | undefined = canvas.getActiveObject();
+    const existingCenterPoint: fabric.Object | undefined = this.getCenterPoint();
+
+
+    if (activeObject) {
+      const centerPoint = activeObject.getCenterPoint();
+
+      if (existingCenterPoint) {
+        existingCenterPoint.set({ top: centerPoint.y, left: centerPoint.x });
+      } else {
+        const centerPointGroup = this.createCenterPointGroup({ x: centerPoint.x, y: centerPoint.y });
+        canvas.add(centerPointGroup);
+      }
+
+      canvas.renderAll();
+    }
+
   }
 
-  doMouseDown(o) {
+  doMouseDown(o: fabric.IEvent) {
     const canvas = this._canvas;
     const pointer = canvas.getPointer(o.e);
 
-    const existingCenterPoint = canvas
-      .getObjects()
-      .find((object) => object.type === "center-point-group");
+    const existingCenterPoint = this.getCenterPoint();
 
     if (existingCenterPoint) {
       existingCenterPoint.set({ top: pointer.y, left: pointer.x });
@@ -46,9 +51,30 @@ class CenterPointTool extends FabricCanvasTool {
       return;
     }
 
+    const centerPointGroup = this.createCenterPointGroup(pointer);
+
+    canvas.add(centerPointGroup);
+
+    canvas.renderAll();
+  }
+
+  doMouseMove(o: fabric.IEvent) {}
+
+  doMouseUp(o: fabric.IEvent) {}
+
+  doMouseOut(event: fabric.IEvent) {
+  }
+
+  getCenterPoint(): fabric.Object | undefined {
+    return this._canvas
+      .getObjects()
+      .find((object) => object.type === "center-point-group");
+  }
+
+  createCenterPointGroup(position: { x: number, y: number }): fabric.Group {
     const circle = new fabric.Circle({
-      left: pointer.x,
-      top: pointer.y,
+      left: position.x,
+      top: position.y,
       originX: "center",
       originY: "center",
       fill: this._fill,
@@ -63,8 +89,8 @@ class CenterPointTool extends FabricCanvasTool {
       fill: this._fill,
       originX: 'center',
       originY: 'center',
-      left: pointer.x,
-      top: pointer.y - 25,
+      left: position.x,
+      top: position.y - 25,
       selectable: false,
       evented: false,
     });
@@ -74,8 +100,8 @@ class CenterPointTool extends FabricCanvasTool {
       fill: this._fill,
       originX: 'center',
       originY: 'center',
-      left: pointer.x,
-      top: pointer.y + 25,
+      left: position.x,
+      top: position.y + 25,
       selectable: false,
       evented: false,
     });
@@ -85,8 +111,8 @@ class CenterPointTool extends FabricCanvasTool {
       fill: this._fill,
       originX: 'center',
       originY: 'center',
-      left: pointer.x - 25,
-      top: pointer.y,
+      left: position.x - 25,
+      top: position.y,
       selectable: false,
       evented: false,
     });
@@ -96,27 +122,20 @@ class CenterPointTool extends FabricCanvasTool {
       fill: this._fill,
       originX: 'center',
       originY: 'center',
-      left: pointer.x + 25,
-      top: pointer.y,
+      left: position.x + 25,
+      top: position.y,
       selectable: false,
       evented: false,
     });
 
-    const group = new fabric.Group(
+    return new fabric.Group(
       [ circle, rectTop, rectBottom, rectLeft, rectRight ],
       {
         type: 'center-point-group',
         originY: 'center',
         originX: 'center'
       });
-    canvas.add(group);
-
-    canvas.renderAll();
   }
-
-  doMouseMove(o) {}
-
-  doMouseUp(o) {}
 }
 
 export default CenterPointTool;

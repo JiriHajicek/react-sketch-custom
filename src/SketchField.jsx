@@ -11,7 +11,7 @@ import Arrow from "./arrow";
 import Rectangle from "./rectangle";
 import Circle from "./circle";
 import Pan from "./pan";
-import Tool from "./tools";
+import { Tools } from "./tools";
 import RectangleLabel from "./rectangle-label";
 import DefaultTool from "./defaul-tool";
 import PolylineTool from "./polyline";
@@ -116,21 +116,21 @@ class SketchField extends PureComponent {
   };
   _initTools = (fabricCanvas) => {
     this._tools = {};
-    this._tools[Tool.Select] = new Select(fabricCanvas);
-    this._tools[Tool.Pencil] = new Pencil(fabricCanvas);
-    this._tools[Tool.Line] = new Line(fabricCanvas);
-    this._tools[Tool.Arrow] = new Arrow(fabricCanvas);
-    this._tools[Tool.Rectangle] = new Rectangle(fabricCanvas);
-    this._tools[Tool.RectangleCut] = new RectangleCut(fabricCanvas);
-    this._tools[Tool.RectangleLabel] = new RectangleLabel(fabricCanvas);
-    this._tools[Tool.Circle] = new Circle(fabricCanvas);
-    this._tools[Tool.CircleCut] = new CircleCut(fabricCanvas);
-    this._tools[Tool.Pan] = new Pan(fabricCanvas);
-    this._tools[Tool.DefaultTool] = new DefaultTool(fabricCanvas);
-    this._tools[Tool.Polyline] = new PolylineTool(fabricCanvas);
-    this._tools[Tool.PolylineCut] = new PolylineCutTool(fabricCanvas);
-    this._tools[Tool.Cursor] = new CursorTool(fabricCanvas);
-    this._tools[Tool.CenterPoint] = new CenterPointTool(fabricCanvas);
+    this._tools[Tools.Select] = new Select(fabricCanvas);
+    this._tools[Tools.Pencil] = new Pencil(fabricCanvas);
+    this._tools[Tools.Line] = new Line(fabricCanvas);
+    this._tools[Tools.Arrow] = new Arrow(fabricCanvas);
+    this._tools[Tools.Rectangle] = new Rectangle(fabricCanvas);
+    this._tools[Tools.RectangleCut] = new RectangleCut(fabricCanvas);
+    this._tools[Tools.RectangleLabel] = new RectangleLabel(fabricCanvas);
+    this._tools[Tools.Circle] = new Circle(fabricCanvas);
+    this._tools[Tools.CircleCut] = new CircleCut(fabricCanvas);
+    this._tools[Tools.Pan] = new Pan(fabricCanvas);
+    this._tools[Tools.DefaultTool] = new DefaultTool(fabricCanvas);
+    this._tools[Tools.Polyline] = new PolylineTool(fabricCanvas);
+    this._tools[Tools.PolylineCut] = new PolylineCutTool(fabricCanvas);
+    this._tools[Tools.Cursor] = new CursorTool(fabricCanvas);
+    this._tools[Tools.CenterPoint] = new CenterPointTool(fabricCanvas);
   };
 
   /**
@@ -292,7 +292,7 @@ class SketchField extends PureComponent {
     // Update the final state to new-generated object
     // Ignore Path object since it would be created after mouseUp
     // Assumed the last object in canvas.getObjects() in the newest object
-    if (this.props.tool !== Tool.Pencil) {
+    if (this.props.tool !== Tools.Pencil) {
       const canvas = this._fc;
       const objects = canvas.getObjects();
       const newObj = objects[objects.length - 1];
@@ -499,7 +499,7 @@ class SketchField extends PureComponent {
     let canvas = this._fc;
     setTimeout(() => {
       canvas.loadFromJSON(json, () => {
-        if (this.props.tool === Tool.DefaultTool) {
+        if (this.props.tool === Tools.DefaultTool) {
           canvas.isDrawingMode = canvas.selection = false;
           canvas.forEachObject((o) => (o.selectable = o.evented = false));
         }
