@@ -88,6 +88,9 @@
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.23",
     "@types/fabric": "^3.6.7",
+    "@types/node": "^14.0.20",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
     "babel-core": "7.0.0-beta.3",
     "babel-eslint": "10.0.1",
     "babel-jest": "23.6.0",
@@ -135,6 +138,8 @@
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "^16.6.1",
-    "react-dom": "^16.6.1"
+    "react-dom": "^16.6.1",
+    "ts-loader": "^8.0.0",
+    "typescript": "^3.9.6"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./build/",
+    "noImplicitAny": false,
+    "strict": false,
+    "module": "ESNext",
+    "target": "ES5",
+    "allowJs": true,
+    "jsx": "react",
+    "strictNullChecks": true,
+    "sourceMap": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

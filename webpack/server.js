@@ -38,7 +38,7 @@ const config = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   devServer: {
     historyApiFallback: true,
@@ -52,6 +52,11 @@ const config = {
   module: {
     rules: [
       { test: /\.css$/, loader: 'style-loader!css-loader' },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
       {
         test: /\.(js|jsx)$/,
         include: [Paths.srcPath, Paths.examplesPath],
@@ -78,7 +83,7 @@ const config = {
         'NODE_ENV': JSON.stringify('development')
       }
     }),
-    new OpenBrowserPlugin({ url: 'http://localhost:' + port })
+    new OpenBrowserPlugin({ url: `http://localhost:` + port })
   ]
 };
 
