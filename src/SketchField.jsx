@@ -13,7 +13,7 @@ import Circle from "./circle";
 import Pan from "./pan";
 import { Tools } from "./tools";
 import RectangleLabel from "./rectangle-label";
-import DefaultTool from "./defaul-tool";
+import DefaultTool from "./default-tool";
 import PolylineTool from "./polyline";
 import PolylineCutTool from "./polyline-cut";
 import RectangleCut from "./rectangle-cut";

@@ -1,8 +1,13 @@
 /* eslint no-unused-vars: 0 */
 
-const fabric = require('fabric').fabric;
+import {fabric} from 'fabric';
 
 class RectangleLabelObject {
+  private _canvas: fabric.Canvas;
+  private _text: string;
+  public _rectObj: fabric.Rect;
+  public _textObj: fabric.Textbox;
+
   constructor(canvas, text, rectProps, textProps){
     this._canvas = canvas;
     this._text = text;
@@ -20,6 +25,7 @@ class RectangleLabelObject {
           'width'      : this._rectObj.getScaledWidth(),
           'scaleX'     : 1,
           'scaleY'     : 1,
+        // @ts-ignore
           'top'        : this._rectObj.top - this._textObj.getScaledHeight(),
           'left'       : this._rectObj.left,
       })

@@ -1,10 +1,14 @@
 /*eslint no-unused-vars: 0*/
 
 import FabricCanvasTool from './fabrictool'
-
-const fabric = require('fabric').fabric;
+import { fabric } from 'fabric';
 
 class Arrow extends FabricCanvasTool {
+  private _width: number;
+  private _color: string;
+  private isDown: boolean;
+  private line: fabric.Line;
+  private head: fabric.Triangle;
 
   configureCanvas(props) {
     let canvas = this._canvas;
@@ -53,8 +57,8 @@ class Arrow extends FabricCanvasTool {
     this.line.set({ x2: pointer.x, y2: pointer.y });
     this.line.setCoords();
 
-    let x_delta = pointer.x - this.line.x1;
-    let y_delta = pointer.y - this.line.y1;
+    let x_delta = pointer.x - this.line.x1!;
+    let y_delta = pointer.y - this.line.y1!;
 
     this.head.set({ 
       left: pointer.x, 

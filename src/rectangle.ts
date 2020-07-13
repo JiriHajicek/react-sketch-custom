@@ -1,10 +1,16 @@
 /*eslint no-unused-vars: 0*/
 
 import FabricCanvasTool from './fabrictool'
-
-const fabric = require('fabric').fabric;
+import { fabric } from 'fabric';
 
 class Rectangle extends FabricCanvasTool {
+  private _width: number;
+  private _color: string;
+  private _fill: string;
+  private isDown: boolean;
+  private startX: number;
+  private startY: number;
+  private rect: fabric.Rect;
 
   configureCanvas(props) {
     let canvas = this._canvas;
@@ -59,6 +65,9 @@ class Rectangle extends FabricCanvasTool {
 
   doMouseUp(o) {
     this.isDown = false;
+  }
+
+  doMouseOut(event: fabric.IEvent): void {
   }
 }
 

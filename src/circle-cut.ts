@@ -2,10 +2,16 @@
 
 import FabricCanvasTool from './fabrictool'
 import {linearDistance} from './utils';
-
-const fabric = require('fabric').fabric;
+import { fabric } from 'fabric';
 
 class CircleCut extends FabricCanvasTool {
+  private _width: number;
+  private _color: string;
+  private _fill: string;
+  private isDown: boolean;
+  private startX: number;
+  private startY: number;
+  private circle: fabric.Circle;
 
   configureCanvas(props) {
     let canvas = this._canvas;
@@ -49,6 +55,9 @@ class CircleCut extends FabricCanvasTool {
 
   doMouseUp(o) {
     this.isDown = false;
+  }
+
+  doMouseOut(event: fabric.IEvent): void {
   }
 }
 

@@ -1,9 +1,20 @@
 /*eslint no-unused-vars: 0*/
 
 import FabricCanvasTool from './fabrictool'
+import { fabric } from 'fabric';
 import RectangleLabelObject from './rectangle-label-object';
 
 class RectangleLabel extends FabricCanvasTool {
+  private _width: number;
+  private _color: string;
+  private _fill: string;
+  private _textString: string;
+  private _maxFontSize: number;
+  private isDown: boolean;
+  private startX: number;
+  private startY: number;
+  private rectangleLabel: RectangleLabelObject;
+  private _objects: any[];
 
   configureCanvas(props) {
     let canvas = this._canvas;
@@ -44,7 +55,7 @@ class RectangleLabel extends FabricCanvasTool {
       originX: 'left',
       originY: 'top',
       width: pointer.x - this.startX - this._width,
-      height: canvas.height/3,
+      height: canvas.height!/3,
       fontSize: this._maxFontSize,
       noScaleCache: false,
       backgroundColor: this._color,
@@ -58,7 +69,9 @@ class RectangleLabel extends FabricCanvasTool {
     else
       this._objects = [this.rectangleLabel];
 
+    // @ts-ignore
     while (this.rectangleLabel._textObj.height >  canvas.height/3) {
+      // @ts-ignore
       this.rectangleLabel._textObj.set({fontSize: this.rectangleLabel._textObj.fontSize-1,top: this.startY - this.rectangleLabel._textObj.fontSize - 12,});
     }
 
@@ -96,6 +109,9 @@ class RectangleLabel extends FabricCanvasTool {
     // canvas.remove(this.rectangleLabel._textObj);
     // canvas.add(group);
     canvas.renderAll();
+  }
+
+  doMouseOut(event: fabric.IEvent): void {
   }
 }
 

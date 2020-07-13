@@ -1,8 +1,7 @@
 /*eslint no-unused-vars: 0*/
 
 import FabricCanvasTool from './fabrictool'
-
-const fabric = require('fabric').fabric;
+import { fabric } from 'fabric';
 
 class DefaultTool extends FabricCanvasTool {
   configureCanvas(props) {
@@ -13,6 +12,20 @@ class DefaultTool extends FabricCanvasTool {
     canvas.defaultCursor = 'pointer';
     canvas.renderAll();
   }
+
+  doMouseDown(event: fabric.IEvent): void {
+  }
+
+  doMouseMove(event: fabric.IEvent): void {
+  }
+
+  doMouseOut(event: fabric.IEvent): void {
+  }
+
+  doMouseUp(event: fabric.IEvent): void {
+  }
+
+
 
 }
 

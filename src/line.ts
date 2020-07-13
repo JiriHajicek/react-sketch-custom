@@ -5,6 +5,11 @@ import FabricCanvasTool from './fabrictool'
 const fabric = require('fabric').fabric;
 
 class Line extends FabricCanvasTool {
+  private _width: number;
+  private _color: string;
+  private isDown: boolean;
+  private line: fabric.Line;
+
 
   configureCanvas(props) {
     let canvas = this._canvas;

@@ -1,10 +1,12 @@
 /*eslint no-unused-vars: 0*/
 
 import FabricCanvasTool from './fabrictool'
-
-const fabric = require('fabric').fabric;
+import { fabric } from 'fabric';
 
 class Pan extends FabricCanvasTool {
+  private isDown: boolean;
+  private startX: number;
+  private startY: number;
 
   configureCanvas(props) {
     let canvas = this._canvas;
@@ -27,15 +29,15 @@ class Pan extends FabricCanvasTool {
     let canvas = this._canvas;
     let pointer = canvas.getPointer(o.e);
 
-    canvas.relativePan({
-      x: pointer.x - this.startX,
-      y: pointer.y - this.startY
-    });
+    canvas.relativePan(new fabric.Point(pointer.x - this.startX, pointer.y - this.startY));
     canvas.renderAll();
   }
 
   doMouseUp(o) {
     this.isDown = false;
+  }
+
+  doMouseOut(event: fabric.IEvent): void {
   }
 
 }
