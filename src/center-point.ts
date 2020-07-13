@@ -10,7 +10,7 @@ class CenterPointTool extends FabricCanvasTool {
   private _radius: number;
 
   configureCanvas(props) {
-    const  canvas = this._canvas;
+    const canvas = this._canvas;
     canvas.isDrawingMode = canvas.selection = false;
     canvas.forEachObject((o) => (o.selectable = o.evented = false));
 
@@ -70,7 +70,7 @@ class CenterPointTool extends FabricCanvasTool {
   getCenterPoint(): fabric.Object | undefined {
     return this._canvas
       .getObjects()
-      .find((object) => object.type === "center-point-group");
+      .find((object) => object.name === "center-point-group");
   }
 
   createCenterPointGroup(position: { x: number, y: number }): fabric.Group {
@@ -133,9 +133,9 @@ class CenterPointTool extends FabricCanvasTool {
     return new fabric.Group(
       [ circle, rectTop, rectBottom, rectLeft, rectRight ],
       {
-        type: 'center-point-group',
         originY: 'center',
-        originX: 'center'
+        originX: 'center',
+        name: 'center-point-group',
       });
   }
 }
