@@ -84,7 +84,7 @@ export default class PolylineCutTool extends FabricCanvasTool {
       objectCaching: false,
       transparentCorners: false,
       cornerColor: 'blue',
-      type: 'polygon-cut',
+      name: 'polygon-cut',
       globalCompositeOperation: 'destination-out',
     });
   }

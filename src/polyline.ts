@@ -80,7 +80,7 @@ class PolylineTool extends FabricCanvasTool {
      * @type {Polygon}
      */
     this.roof = new fabric.Polygon([], {
-      type: 'polygon',
+      name: 'polygon',
       selectable: false,
       evented: false,
       fill: this._fill,
