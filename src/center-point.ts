@@ -28,9 +28,11 @@ class CenterPointTool extends FabricCanvasTool {
 
       if (existingCenterPoint) {
         existingCenterPoint.set({ top: centerPoint.y, left: centerPoint.x });
+        canvas.discardActiveObject();
         existingCenterPoint.bringToFront();
       } else {
         const centerPointGroup = this.createCenterPointGroup({ x: centerPoint.x, y: centerPoint.y });
+        canvas.discardActiveObject();
         centerPointGroup.bringToFront();
         canvas.add(centerPointGroup);
       }
@@ -136,6 +138,7 @@ class CenterPointTool extends FabricCanvasTool {
         originY: 'center',
         originX: 'center',
         name: 'center-point-group',
+        lockUniScaling: true
       });
   }
 }
