@@ -18,6 +18,7 @@ import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Collapse from "@material-ui/core/Collapse";
+import Input from "@material-ui/core/Input";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import color from "@material-ui/core/colors/blueGrey";
 
@@ -284,6 +285,19 @@ class SketchFieldDemo extends React.Component {
 
   _addText = () => this._sketch.addText(this.state.text);
 
+  handleSvgUpload = (e) => {
+    if (!e.target) return;
+
+    const reader = new FileReader();
+    reader.onload = (x) => {
+      const svgData = x.target.result;
+
+      this._sketch.uploadSvg(svgData);
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
   componentDidMount = () => {
     (function (console) {
       console.save = function (data, filename) {
@@ -486,6 +500,22 @@ class SketchFieldDemo extends React.Component {
                 <CallMade
                   fontSize="small"
                   style={{ transform: "rotate(-90deg)" }}
+                />
+              </Button>
+              <Button
+                color={false ? "primary" : "default"}
+                variant="contained"
+                component="label"
+                htmlFor="correction-image-input"
+              >
+                <GetApp fontSize="small" />
+                SVG
+                <Input
+                  style={{ display: "none" }}
+                  id="correction-image-input"
+                  name="correction-image-input"
+                  type="file"
+                  onChange={this.handleSvgUpload}
                 />
               </Button>
               <Button color={false ? "primary" : "default"} variant="contained">

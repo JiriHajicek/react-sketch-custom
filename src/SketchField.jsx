@@ -635,6 +635,17 @@ class SketchField extends PureComponent {
     canvas.add(iText);
   };
 
+  uploadSvg = (svgUrl) => {
+    let canvas = this._fc;
+
+    fabric.loadSVGFromURL(svgUrl, function (objects, options) {
+      var loadedObjects = fabric.util.groupSVGElements(objects, options);
+
+      canvas.add(loadedObjects);
+      canvas.renderAll();
+    });
+  };
+
   callEvent = (e, eventFunction) => {
     if (this._selectedTool) eventFunction(e);
   };
