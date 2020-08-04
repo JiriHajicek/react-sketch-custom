@@ -161,10 +161,12 @@ class PolylineTool extends FabricCanvasTool {
 
     return this.lines.some(line => {
       const startingPoint = new fabric.Point(line.x1!, line.y1!);
-      const distanceFromCursor = startingPoint.distanceFrom(pointer as fabric.Point);
+      const distanceFromCursor = startingPoint.distanceFrom(
+        pointer as fabric.Point
+      );
 
-      return distanceFromCursor < 10;
-    })
+      return distanceFromCursor < this._width;
+    });
   }
 
   /**
