@@ -185,9 +185,16 @@ class PolylineTool extends FabricCanvasTool {
     delete obj.left;
     obj.strokeWidth = 0;
 
-    const shape = new fabric.Polygon(this.roof.points, {...obj, selectable: false, evented: false});
+    const shape = new fabric.Polygon(this.roof.points, {
+      ...obj,
+      selectable: false,
+      evented: false,
+      fill: this._fill,
+      stroke: this._color,
+      strokeWidth: this._width,
+    });
 
-    this.lines.forEach(line => canvas.remove(line))
+    this.lines.forEach((line) => canvas.remove(line));
     this.lines = [];
     this.editing = true;
     this.initializeRoof();
