@@ -1,5 +1,5 @@
 {
-  "name": "react-sketch-dev-v2",
+  "name": "react-sketch-custom",
   "version": "0.18.0",
   "description": "Sketch Element for React based applications, backed-up by fabricjs as its core",
   "keywords": [
@@ -10,15 +10,8 @@
     "fabric.js"
   ],
   "author": {
-    "name": "Jan Sedloň",
-    "email": "jansedlon@icloud.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jansedlon/react-sketch.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jansedlon/react-sketch/issues"
+    "name": "Jiri Hajicek",
+    "email": "jiri.hajicek99@gmail.com"
   },
   "license": "MIT",
   "main": "./dist",
