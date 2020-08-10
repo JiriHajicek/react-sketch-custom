@@ -727,6 +727,12 @@ class SketchField extends PureComponent {
       //Bring the cursor back to default if it is changed by a tool
       this._fc.defaultCursor = "default";
       if (this._selectedTool) {
+        if (
+          prevProps.tool === Tools.Polyline ||
+          prevProps.tool === Tools.PolylineCut
+        ) {
+          this._tools[prevProps.tool].finishTool();
+        }
         this._selectedTool.configureCanvas(this.props);
       }
     }

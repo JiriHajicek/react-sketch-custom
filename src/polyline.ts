@@ -1,5 +1,5 @@
 import FabricCanvasTool from "./fabrictool";
-import { fabric } from 'fabric';
+import { fabric } from "fabric";
 
 // function polygonPositionHandler(dim, finalMatrix, fabricObject) {
 //   const x = (fabricObject.points[this.pointIndex].x - fabricObject.pathOffset.x),
@@ -70,7 +70,6 @@ class PolylineTool extends FabricCanvasTool {
      */
     this.lines = [];
   }
-
   /**
    * Create new roof with no points
    */
@@ -80,14 +79,13 @@ class PolylineTool extends FabricCanvasTool {
      * @type {Polygon}
      */
     this.roof = new fabric.Polygon([], {
-      name: 'polygon',
+      name: "polygon",
       selectable: false,
       evented: false,
       fill: this._fill,
       stroke: this._color,
       strokeWidth: this._width,
     });
-
   }
 
   doMouseDown(o) {
@@ -106,19 +104,20 @@ class PolylineTool extends FabricCanvasTool {
     //   return;
     // }
 
-    const shouldEndPolygon = this.shouldEndPolygon(o)
+    const shouldEndPolygon = this.shouldEndPolygon(o);
 
     if (shouldEndPolygon) {
-      this.endPolygon(o)
+      this.endPolygon(o);
       // this.edit();
-    }
-    else {
-      this.lines.push(new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
-        selectable: false,
-        fill: this._fill,
-        stroke: this._color,
-        strokeWidth: this._width,
-      }))
+    } else {
+      this.lines.push(
+        new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
+          selectable: false,
+          fill: this._fill,
+          stroke: this._color,
+          strokeWidth: this._width,
+        })
+      );
 
       canvas.add(this.lines[this.lines.length - 1]);
     }
@@ -136,18 +135,14 @@ class PolylineTool extends FabricCanvasTool {
     this.lines[this.lines.length - 1].set({
       x2: pointer.x,
       y2: pointer.y,
-    })
+    });
 
     canvas.renderAll();
   }
 
-  doMouseUp(o) {
+  doMouseUp(o) {}
 
-  }
-
-  doMouseOut(o) {
-
-  }
+  doMouseOut(o) {}
 
   /**
    * If last line is at most 10 pixels from the first point
@@ -159,7 +154,7 @@ class PolylineTool extends FabricCanvasTool {
     const canvas = this._canvas;
     const pointer = canvas.getPointer(o.e);
 
-    return this.lines.some(line => {
+    return this.lines.some((line) => {
       const startingPoint = new fabric.Point(line.x1!, line.y1!);
       const distanceFromCursor = startingPoint.distanceFrom(
         pointer as fabric.Point
@@ -178,7 +173,9 @@ class PolylineTool extends FabricCanvasTool {
 
     canvas.remove(this.roof);
 
-    this.roof.points = this.lines.map(line => new fabric.Point(line.x1!, line.y1!));
+    this.roof.points = this.lines.map(
+      (line) => new fabric.Point(line.x1!, line.y1!)
+    );
 
     const obj = this.roof.toObject();
     delete obj.top;
@@ -191,7 +188,7 @@ class PolylineTool extends FabricCanvasTool {
       evented: false,
       fill: this._fill,
       stroke: this._color,
-      strokeWidth: this._width,
+      strokeWidth: this._width / 2,
     });
 
     this.lines.forEach((line) => canvas.remove(line));
@@ -202,6 +199,11 @@ class PolylineTool extends FabricCanvasTool {
 
     canvas.renderAll();
     canvas.forEachObject((o) => (o.selectable = o.evented = false));
+  }
+
+  finishTool() {
+    const canvas = this._canvas;
+    this.lines.forEach((line) => canvas.remove(line));
   }
 
   // edit() {

@@ -1,5 +1,5 @@
 import FabricCanvasTool from "./fabrictool";
-import { fabric } from 'fabric';
+import { fabric } from "fabric";
 
 // function polygonPositionHandler(dim, finalMatrix, fabricObject) {
 //   const x = (fabricObject.points[this.pointIndex].x - fabricObject.pathOffset.x),
@@ -83,9 +83,9 @@ export default class PolylineCutTool extends FabricCanvasTool {
       strokeWidth: 1,
       objectCaching: false,
       transparentCorners: false,
-      cornerColor: 'blue',
-      name: 'polygon-cut',
-      globalCompositeOperation: 'destination-out',
+      cornerColor: "blue",
+      name: "polygon-cut",
+      globalCompositeOperation: "destination-out",
     });
   }
 
@@ -105,18 +105,19 @@ export default class PolylineCutTool extends FabricCanvasTool {
     //   return;
     // }
 
-    const shouldEndPolygon = this.shouldEndPolygon(o)
+    const shouldEndPolygon = this.shouldEndPolygon(o);
 
     if (shouldEndPolygon) {
-      this.endPolygon(o)
+      this.endPolygon(o);
       // this.edit();
-    }
-    else {
-      this.lines.push(new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
-        strokeWidth: 3,
-        selectable: false,
-        stroke: 'white',
-      }))
+    } else {
+      this.lines.push(
+        new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
+          strokeWidth: 3,
+          selectable: false,
+          stroke: "white",
+        })
+      );
 
       canvas.add(this.lines[this.lines.length - 1]);
     }
@@ -134,18 +135,14 @@ export default class PolylineCutTool extends FabricCanvasTool {
     this.lines[this.lines.length - 1].set({
       x2: pointer.x,
       y2: pointer.y,
-    })
+    });
 
     canvas.renderAll();
   }
 
-  doMouseUp(o) {
+  doMouseUp(o) {}
 
-  }
-
-  doMouseOut(o) {
-
-  }
+  doMouseOut(o) {}
 
   /**
    * If last line is at most 10 pixels from the first point
@@ -157,7 +154,7 @@ export default class PolylineCutTool extends FabricCanvasTool {
     const canvas = this._canvas;
     const pointer = canvas.getPointer(o.e);
 
-    return this.lines.some(line => {
+    return this.lines.some((line) => {
       const startingPoint = new fabric.Point(line.x1!, line.y1!);
       const distanceFromCursor = startingPoint.distanceFrom(
         pointer as fabric.Point
@@ -176,7 +173,9 @@ export default class PolylineCutTool extends FabricCanvasTool {
 
     canvas.remove(this.roof);
 
-    this.roof.points = this.lines.map(line => new fabric.Point(line.x1!, line.y1!));
+    this.roof.points = this.lines.map(
+      (line) => new fabric.Point(line.x1!, line.y1!)
+    );
 
     const obj = this.roof.toObject();
     delete obj.top;
@@ -184,13 +183,18 @@ export default class PolylineCutTool extends FabricCanvasTool {
 
     const shape = new fabric.Polygon(this.roof.points, obj);
 
-    this.lines.forEach(line => canvas.remove(line))
+    this.lines.forEach((line) => canvas.remove(line));
     this.lines = [];
     this.editing = true;
     this.initializeRoof();
     canvas.add(shape);
 
     canvas.renderAll();
+  }
+
+  finishTool() {
+    const canvas = this._canvas;
+    this.lines.forEach((line) => canvas.remove(line));
   }
 
   // edit() {
