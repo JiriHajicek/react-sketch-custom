@@ -54,10 +54,10 @@ class Circle extends FabricCanvasTool {
 
   doMouseUp(o) {
     this.isDown = false;
+    this.circle.rotate(0);
   }
 
-  doMouseOut(event: fabric.IEvent): void {
-  }
+  doMouseOut(event: fabric.IEvent): void {}
 }
 
 export default Circle;
