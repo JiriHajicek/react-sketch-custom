@@ -650,6 +650,15 @@ class SketchField extends PureComponent {
     if (this._selectedTool) eventFunction(e);
   };
 
+  multiSelect = (objects) => {
+    let canvas = this._fc;
+
+    const selection = new fabric.ActiveSelection(objects, { canvas });
+
+    canvas.setActiveObject(selection);
+    canvas.renderAll();
+  };
+
   componentDidMount = () => {
     let { tool, value, undoSteps, defaultValue, backgroundColor } = this.props;
 
