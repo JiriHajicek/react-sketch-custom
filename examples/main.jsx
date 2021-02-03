@@ -531,6 +531,19 @@ class SketchFieldDemo extends React.Component {
               >
                 roi
               </Button>
+              <Button
+                color={false ? "primary" : "default"}
+                variant="contained"
+                style={{ height: 32 }}
+                onClick={() => {
+                  const selectedObj = this._sketch._fc.getActiveObject();
+                  selectedObj.set({
+                    disableSelection: !selectedObj.disableSelection,
+                  });
+                }}
+              >
+                selectable
+              </Button>
             </Grid>
             <Grid item xs={1} />
           </Grid>
