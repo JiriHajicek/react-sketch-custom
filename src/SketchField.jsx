@@ -562,8 +562,8 @@ class SketchField extends PureComponent {
       let canvas = this._fc;
       canvas.discardActiveObject();
       clonedObj.set({
-        left: clonedObj.left + 10,
-        top: clonedObj.top + 10,
+        left: clonedObj.left,
+        top: clonedObj.top,
         evented: true,
       });
       if (clonedObj.type === "activeSelection") {
@@ -574,8 +574,6 @@ class SketchField extends PureComponent {
       } else {
         canvas.add(clonedObj);
       }
-      this._clipboard.top += 10;
-      this._clipboard.left += 10;
       canvas.setActiveObject(clonedObj);
       canvas.requestRenderAll();
     });
