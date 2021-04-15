@@ -10,6 +10,7 @@ class Rectangle extends FabricCanvasTool {
   private isDown: boolean;
   private startX: number;
   private startY: number;
+  private moved: boolean;
   private rect: fabric.Rect;
 
   configureCanvas(props) {
@@ -27,6 +28,7 @@ class Rectangle extends FabricCanvasTool {
     let pointer = canvas.getPointer(o.e);
     this.startX = pointer.x;
     this.startY = pointer.y;
+    this.moved = false
     this.rect = new fabric.Rect({
       left: this.startX,
       top: this.startY,
@@ -44,12 +46,13 @@ class Rectangle extends FabricCanvasTool {
       noScaleCache : false,
       angle: 0
     });
-    canvas.add(this.rect);
   }
 
   doMouseMove(o) {
     if (!this.isDown) return;
     let canvas = this._canvas;
+    if (!this.moved) canvas.add(this.rect);
+    this.moved = true;
     let pointer = canvas.getPointer(o.e);
     if (this.startX > pointer.x) {
       this.rect.set({ left: Math.abs(pointer.x) });
@@ -64,7 +67,9 @@ class Rectangle extends FabricCanvasTool {
   }
 
   doMouseUp(o) {
+    let canvas = this._canvas;
     this.isDown = false;
+    if (!this.moved) canvas.remove(this.rect);
   }
 
   doMouseOut(event: fabric.IEvent): void {

@@ -11,6 +11,7 @@ class Circle extends FabricCanvasTool {
   private isDown: boolean;
   private startX: number;
   private startY: number;
+  private moved: boolean;
   private circle: fabric.Circle;
 
   configureCanvas(props) {
@@ -25,6 +26,7 @@ class Circle extends FabricCanvasTool {
   doMouseDown(o) {
     let canvas = this._canvas;
     this.isDown = true;
+    this.moved = false;
     let pointer = canvas.getPointer(o.e);
     [this.startX, this.startY] = [pointer.x, pointer.y];
     this.circle = new fabric.Circle({
@@ -37,12 +39,13 @@ class Circle extends FabricCanvasTool {
       evented: false,
       radius: 1
     });
-    canvas.add(this.circle);
   }
 
   doMouseMove(o) {
     if (!this.isDown) return;
     let canvas = this._canvas;
+    if (!this.moved) canvas.add(this.circle);
+    this.moved = true;
     let pointer = canvas.getPointer(o.e);
     this.circle.set({
       radius: linearDistance({ x: this.startX, y: this.startY }, { x: pointer.x, y: pointer.y }) / 2,
@@ -53,8 +56,10 @@ class Circle extends FabricCanvasTool {
   }
 
   doMouseUp(o) {
+    let canvas = this._canvas;
     this.isDown = false;
     this.circle.rotate(0);
+    if (!this.moved) canvas.remove(this.circle);
   }
 
   doMouseOut(event: fabric.IEvent): void {}
