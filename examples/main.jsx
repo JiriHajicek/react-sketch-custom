@@ -452,6 +452,19 @@ class SketchFieldDemo extends React.Component {
               >
                 <LinearScale fontSize="small" />
               </Button>
+              <Button
+                color={false ? "primary" : "default"}
+                variant="contained"
+                onClick={() => {
+                  this._sketch.addPolygon([
+                    { x: 0, y: 0 },
+                    { x: 100, y: 0 },
+                    { x: 100, y: 100 },
+                  ]);
+                }}
+              >
+                Add polygon
+              </Button>
             </Grid>
             <Grid
               item

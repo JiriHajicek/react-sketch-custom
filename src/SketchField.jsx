@@ -182,6 +182,30 @@ class SketchField extends PureComponent {
     });
   };
 
+  addPolygon = (points, options = {}) => {
+    const canvas = this._fc;
+
+    const shape = new fabric.Polygon(points, {
+      ...options,
+      name: "polygon",
+      selectable: false,
+      evented: false,
+      fill: this.props.fillColor,
+      stroke: this.props.lineColor,
+      strokeWidth: this.props.lineWidth / 2,
+    });
+
+    canvas.add(shape);
+    canvas.renderAll();
+
+    if (canvas.selection) {
+      canvas.forEachObject((o) => {
+        o.selectable = o.evented =
+          o["disableSelection"] !== undefined ? !o["disableSelection"] : true;
+      });
+    }
+  };
+
   /**
    * Action when an object is added to the canvas
    */
