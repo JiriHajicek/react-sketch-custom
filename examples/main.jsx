@@ -469,7 +469,7 @@ class SketchFieldDemo extends React.Component {
                 color={false ? "primary" : "default"}
                 variant="contained"
                 onClick={() => {
-                  this._sketch.addText(
+                  this._sketch.addTextToObject(
                     this._sketch._fc.getActiveObject(),
                     "Text"
                   );

@@ -685,7 +685,7 @@ class SketchField extends PureComponent {
     let canvas = this._fc;
 
     const textObject = new fabric.Text(text, {
-      fontSize: 20,
+      fontSize: this.props.lineWidth * 7,
       ...object,
       ...params,
     });
