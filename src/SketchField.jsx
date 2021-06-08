@@ -681,7 +681,7 @@ class SketchField extends PureComponent {
     canvas.renderAll();
   };
 
-  addText = (object, text, params = {}) => {
+  addTextToObject = (object, text, params = {}) => {
     let canvas = this._fc;
 
     const textObject = new fabric.Text(text, {
