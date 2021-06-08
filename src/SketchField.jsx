@@ -681,6 +681,23 @@ class SketchField extends PureComponent {
     canvas.renderAll();
   };
 
+  addText = (object, text, params = {}) => {
+    let canvas = this._fc;
+
+    const textObject = new fabric.Text(text, {
+      fontSize: 20,
+      ...object,
+      ...params,
+    });
+
+    canvas.add(textObject);
+    const selection = new fabric.ActiveSelection([object, textObject], {
+      canvas,
+    });
+    selection.toGroup();
+    canvas.renderAll();
+  };
+
   componentDidMount = () => {
     let { tool, value, undoSteps, defaultValue, backgroundColor } = this.props;
 

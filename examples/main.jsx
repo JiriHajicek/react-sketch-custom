@@ -465,6 +465,18 @@ class SketchFieldDemo extends React.Component {
               >
                 Add polygon
               </Button>
+              <Button
+                color={false ? "primary" : "default"}
+                variant="contained"
+                onClick={() => {
+                  this._sketch.addText(
+                    this._sketch._fc.getActiveObject(),
+                    "Text"
+                  );
+                }}
+              >
+                Add text
+              </Button>
             </Grid>
             <Grid
               item
@@ -843,8 +855,8 @@ class SketchFieldDemo extends React.Component {
                         value={this.state.fillWithBackgroundColor}
                         onChange={(e) =>
                           this.setState({
-                            fillWithBackgroundColor: !this.state
-                              .fillWithBackgroundColor,
+                            fillWithBackgroundColor:
+                              !this.state.fillWithBackgroundColor,
                           })
                         }
                       />
