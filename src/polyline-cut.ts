@@ -154,14 +154,17 @@ export default class PolylineCutTool extends FabricCanvasTool {
     const canvas = this._canvas;
     const pointer = canvas.getPointer(o.e);
 
-    return this.lines.some((line) => {
-      const startingPoint = new fabric.Point(line.x1!, line.y1!);
-      const distanceFromCursor = startingPoint.distanceFrom(
-        pointer as fabric.Point
-      );
+    return (
+      this.lines.length > 2 &&
+      this.lines.some((line) => {
+        const startingPoint = new fabric.Point(line.x1!, line.y1!);
+        const distanceFromCursor = startingPoint.distanceFrom(
+          pointer as fabric.Point
+        );
 
-      return distanceFromCursor < 3;
-    });
+        return distanceFromCursor < 3;
+      })
+    );
   }
 
   /**
